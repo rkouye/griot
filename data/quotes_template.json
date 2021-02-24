@@ -1,0 +1,37 @@
+{
+  "index_patterns": "quotes-*",
+  "settings": {},
+  "mappings": {
+    "dynamic": "strict",
+    "dynamic_templates": [],
+    "properties": {
+      "author": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
+      },
+      "embed_quote": {
+        "type": "dense_vector",
+        "dims": 512
+      },
+      "quote": {
+        "type": "text"
+      },
+      "tags": {
+        "type": "keyword"
+      },
+      "path": {
+        "type": "keyword"
+      },
+      "@timestamp": {
+        "type": "date"
+      }
+    }
+  },
+  "aliases": {
+    "quotes": {}
+  }
+}
