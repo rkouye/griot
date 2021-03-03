@@ -16,7 +16,7 @@ services:
     ports:
       - "${ES_PORT:-9200}:9200"
     networks:
-      - elastic
+      - griot
 
   kibana:
     image: docker.elastic.co/kibana/kibana:${ES_VERSION:-7.11.1}
@@ -27,7 +27,7 @@ services:
       ELASTICSEARCH_URL: http://elasticsearch:9200
       ELASTICSEARCH_HOSTS: '["http://elasticsearch:9200"]'
     networks:
-      - elastic
+      - griot
 
   logstash:
     image: docker.elastic.co/logstash/logstash:${ES_VERSION:-7.11.1}
@@ -36,11 +36,22 @@ services:
       - ./pipeline:/usr/share/logstash/pipeline/
       - ./data:/data
     networks:
-      - elastic
+      - griot
+
+  tensorflow:
+    build:
+      dockerfile: ./tensorflow.Dockerfile
+      context: .
+    container_name: tensorflow
+    ports:
+      - "${TF_GRPC_PORT:-8500}:8500"
+      - "${TF_HTTP_PORT:-8501}:8501"
+    networks:
+      - griot
 
 volumes:
   es-data:
 
 networks:
-  elastic:
+  griot:
     driver: bridge

@@ -13,7 +13,7 @@
           }
         }
       },
-      "embed_quote": {
+      "embed_useml": {
         "type": "dense_vector",
         "dims": 512
       },
