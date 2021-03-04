@@ -24,7 +24,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const response = await esClient.search({
       index: "quotes",
       _source_includes: ["quote", "author", "tags"],
-      explain: true,
       body: {
         query: {
           bool: {
