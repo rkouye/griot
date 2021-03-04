@@ -19,38 +19,43 @@ function extractSearchQuery(req: NextApiRequest): SearchQuery {
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { query } = extractSearchQuery(req);
-  const usemlEmbed = (await getUsemlEmbed([query]))[0];
-  const response = await esClient.search({
-    index: "quotes",
-    _source_includes: ["quote", "author", "tags"],
-    body: {
-      query: {
-        bool: {
-          should: [
-            {
-              script_score: {
-                query: { match_all: {} },
-                script: {
-                  source:
-                    "(cosineSimilarity(params.query_vector, doc['embed_useml']) + 1.0) * 3",
-                  params: { query_vector: usemlEmbed },
+  try {
+    const usemlEmbed = (await getUsemlEmbed([query]))[0];
+    const response = await esClient.search({
+      index: "quotes",
+      _source_includes: ["quote", "author", "tags"],
+      explain: true,
+      body: {
+        query: {
+          bool: {
+            should: [
+              {
+                script_score: {
+                  query: { match_all: {} },
+                  script: {
+                    source:
+                      "doc['embed_useml'].size() == 0 ? 0 : (cosineSimilarity(params.query_vector, 'embed_useml') + 1.0) * 3",
+                    params: { query_vector: usemlEmbed },
+                  },
                 },
               },
-            },
-            {
-              function_score: {
-                random_score: {},
+              {
+                function_score: {
+                  random_score: {},
+                },
               },
-            },
-          ],
+            ],
+          },
+        },
+        highlight: {
+          fields: {
+            quote: {},
+          },
         },
       },
-      highlight: {
-        fields: {
-          quote: {},
-        },
-      },
-    },
-  });
-  return res.status(200).json({ hits: response.body.hits.hits });
+    });
+    return res.status(200).json({ hits: response.body.hits.hits });
+  } catch (e) {
+    return res.status(500).json(e);
+  }
 };
