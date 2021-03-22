@@ -27,16 +27,17 @@ export default function Home() {
   );
 
   return (
-    <>
+    <div className="relative">
       <Head>
         <title>Griot</title>
       </Head>
-      <header className="m-4 text-center">
-        <span className="text-8xl">
+      <header className="w-full sticky top-0 bg-primary z-50">
+        <div className="text-8xl text-center">
           gr<span className="text-secondary">io</span>t
-        </span>
-      </header>
-      <main className="m-8">
+        </div>
+        <p className="text-center text-xs text-gray-500 mt-16">
+          Find quotes by asking question
+        </p>
         <div className="mx-auto max-w-xl p-4 relative">
           <svg
             height="24px"
@@ -57,16 +58,8 @@ export default function Home() {
             autoFocus
           />
         </div>
-        <p className="text-center text-xs text-gray-500">
-          Search quotes by meaning in any of the{" "}
-          <b
-            className="text-gray-700"
-            title="Arabic, Chinese-simplified, Chinese-traditional, English, French,
-            German, Italian, Japanese, Korean, Dutch, Polish, Portuguese,
-            Spanish, Thai, Turkish, Russian">
-            16 languages supported
-          </b>
-        </p>
+      </header>
+      <main className="m-4">
         {error && (
           <code className="text-danger">
             ‼️ Oups ! - An error occurred. <br />
@@ -76,15 +69,13 @@ export default function Home() {
         {!error && response && response.hits && (
           <ul className="mt-8 mx-auto max-w-4xl">
             {response.hits.map((hit) => (
-              <li
-                key={hit._id}
-                className=" bg-white text-gray-700 p-4 m-4 rounded-lg">
+              <li key={hit._id} className="text-gray-700 p-4 m-4 rounded-lg">
                 {hit._source.quote} <b>({hit._source.author})</b>
               </li>
             ))}
           </ul>
         )}
       </main>
-    </>
+    </div>
   );
 }
