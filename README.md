@@ -7,8 +7,6 @@ Sample pipeline for semantic search with Elasticsearch using NLP embeddings.
 ## TODO
 
 - Add BERT
-- Improve UI
-- Add exact term search
 - Implement recommender system
 
 ## Citation
