@@ -19,10 +19,12 @@ const fetcher = async (url) => {
   return res.json();
 };
 
+const example = "software development";
+
 export default function Home() {
-  const [query, setQuery] = useState("how to be motivated ?");
+  const [query, setQuery] = useState("");
   const { data: response, error, isValidating } = useSWR(
-    `/api/search?query=${encodeURIComponent(query)}`,
+    `/api/search?query=${encodeURIComponent(query || example)}`,
     fetcher
   );
 
@@ -36,7 +38,7 @@ export default function Home() {
           gr<span className="text-secondary">io</span>t
         </div>
         <p className="text-center text-xs text-gray-500 mt-16">
-          Find quotes by asking question
+          Ideas for your next publication
         </p>
         <div className="mx-auto max-w-xl p-4 relative">
           <svg
@@ -55,6 +57,7 @@ export default function Home() {
             type="text"
             onChange={(e) => setQuery(e.target.value)}
             value={query}
+            placeholder={`Type the subject here, for example : ${example}`}
             autoFocus
           />
         </div>
@@ -67,9 +70,14 @@ export default function Home() {
           </code>
         )}
         {!error && response && response.hits && (
-          <ul className="mt-8 mx-auto max-w-4xl">
+          <ul className="mt-8 mx-auto max-w-4xl divide-y divide-gray-500">
             {response.hits.map((hit) => (
-              <li key={hit._id} className="text-gray-700 p-4 m-4 rounded-lg">
+              <li key={hit._id} className="text-gray-900 p-4 m-4 text-center">
+                <span
+                  className="p-1 m-1 rounded-xl text-xs float-left"
+                  style={{ backgroundColor: "limegreen" }}>
+                  quote
+                </span>{" "}
                 {hit._source.quote} <b>({hit._source.author})</b>
               </li>
             ))}
