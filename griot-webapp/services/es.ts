@@ -1,7 +1,6 @@
 import { Client } from "@elastic/elasticsearch";
+import { ES_NODE_URL } from "./config";
 
-const node = "http://localhost:9300";
-
-const client = new Client({ node });
+const client = new Client({ node: ES_NODE_URL });
 
 export default client;

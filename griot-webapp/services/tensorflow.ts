@@ -1,7 +1,7 @@
-const TF_URL = "http://localhost:8501/v1/models/useml:predict";
+import { USEML_URL } from "./config";
 
 export async function getUsemlEmbed(instances: string[]): Promise<number[][]> {
-  const response = await fetch(TF_URL, {
+  const response = await fetch(USEML_URL, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
