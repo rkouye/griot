@@ -59,7 +59,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     });
     return res.status(200).json({ hits: response.body.hits.hits });
   } catch (e) {
-    console.log(e);
-    return res.status(500).json(e);
+    console.error(JSON.stringify(e, null, 2));
+    return res.status(500).json({ error: e.toString() });
   }
 };
