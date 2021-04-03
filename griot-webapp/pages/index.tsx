@@ -42,7 +42,7 @@ export default function Home() {
         <title>Griot</title>
         <meta
           name="description"
-          content="Search engine for quotes. Powered by machine learning."
+          content="Multilingual quote search engine. Powered by machine learning."
         />
       </Head>
       <a href="https://github.com/rkouye/griot">
@@ -57,7 +57,7 @@ export default function Home() {
           gr<span className="text-primary">io</span>t
         </div>
         <p className="text-center text-xs text-gray-500 mt-5">
-          Quote search engine
+          Multilingual quote search engine
         </p>
         <div className="mx-auto max-w-xl p-4 relative">
           <svg
