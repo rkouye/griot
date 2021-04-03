@@ -2,7 +2,7 @@
 
 Sample implementation of semantic search with Elasticsearch using NLP embeddings.
 
-[https://griot.vercel.app/](https://griot.vercel.app/).
+[griot](https://griot.vercel.app/) : a quote search engine.
 
 
 ![Demo](demo.gif)
