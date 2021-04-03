@@ -24,7 +24,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const response = await esClient.search({
       index: "quotes",
       _source_includes: ["quote", "author", "tags"],
-      size: 100,
+      size: 18,
       body: {
         query: {
           bool: {
@@ -32,20 +32,20 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
               {
                 script_score: {
                   query: { match_all: {} },
-                  min_score: 1.11,
+                  min_score: 10,
                   script: {
                     source:
-                      "doc['embed_useml'].size() == 0 ? 0 : (cosineSimilarity(params.query_vector, 'embed_useml')+1)",
+                      "doc['embed_useml'].size() == 0 ? 0 : (cosineSimilarity(params.query_vector, 'embed_useml')+1)*20",
                     params: { query_vector: usemlEmbed },
                   },
                 },
               },
+              {
+                match: {
+                  author: { query },
+                },
+              },
             ],
-          },
-        },
-        highlight: {
-          fields: {
-            quote: {},
           },
         },
         sort: [

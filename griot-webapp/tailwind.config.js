@@ -5,11 +5,10 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     colors: {
-      primary: colors.orange[100],
-      secondary: colors.lightBlue[800],
+      primary: colors.lightBlue[800],
       gray: colors.blueGray,
       danger: colors.red[600],
-      white: colors.white,
+      paper: "rgb(224, 229, 236)",
     },
     extend: {},
   },
