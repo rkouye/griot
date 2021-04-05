@@ -86,7 +86,7 @@ export default function Home() {
           searching ? "opacity-0" : "opacity-100"
         } transition-all`}>
         {error && (
-          <code className="text-danger">‼️ Oups ! - An error occurred.</code>
+          <code className="text-danger">Search service is down ❗</code>
         )}
         {!error && response && response.hits && (
           <ul className="mx-auto max-w-6xl grid grid-cols-1 gap-4 lg:grid-cols-3">
