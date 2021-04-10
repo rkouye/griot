@@ -2,9 +2,16 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 import useSWR from "swr";
 import styles from "./index.module.css";
+import fetchWithRetry from "fetch-retry";
+
+const customFetch = fetchWithRetry(fetch, {
+  retries: 5,
+  retryDelay: 3000,
+  retryOn: [500, 502, 503, 504],
+});
 
 const fetcher = async (url: string) => {
-  const res = await fetch(url);
+  const res = await customFetch(url);
 
   // If the status code is not in the range 200-299,
   // we still try to parse and throw it.
