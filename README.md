@@ -1,6 +1,6 @@
 # griot
 
-Sample implementation of semantic search with Elasticsearch using NLP embeddings.
+Sample implementation of multilingual semantic search with Elasticsearch using NLP embeddings.
 
 [Try griot, the multilingual quote search engine](https://griot.vercel.app/).
 
