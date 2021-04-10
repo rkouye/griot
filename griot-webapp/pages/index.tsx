@@ -7,7 +7,7 @@ import fetchWithRetry from "fetch-retry";
 const customFetch = fetchWithRetry(fetch, {
   retries: 5,
   retryDelay: 3000,
-  retryOn: [500, 502, 503, 504],
+  retryOn: [502, 503, 504],
 });
 
 const fetcher = async (url: string) => {
